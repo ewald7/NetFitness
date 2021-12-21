@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+		<title>Cadastro</title>
+		<link rel='stylesheet' type='text/css' media='screen' href='form-page.css'>
+	</head>
+    <div class="form-container" id="cadastro">
+        <img src="assets/logovermelho.png" alt="logotipo" width=300 height=200>
+        <h1>Cadastro</h1>
+
+        <form>
+            <div>
+                <input id="nome" name="nome" required="required" type="text" placeholder="Digite seu nome">
+            </div>
+
+            <div>
+                <div>
+                    <label for="personal">Personal</label>
+                    <input type="radio" id="personal" name="tipo" value="aaa">
+                </div>
+
+                <div>
+                    <label for="aluno">Aluno</label>
+                    <input type="radio" id="aluno" name="tipo" value="bbb" checked>
+                </div>
+            </div>
+
+            <div>
+                <input id="email" name="email" required="required" type="email"
+                    placeholder="Digite seu e-mail">
+            </div>
+
+            <div>
+                <input id="senha" name="senha" required="required" type="password"
+                    placeholder="Digite sua senha">
+            </div>
+
+            <div>
+                <input id="cref" name="cref" required="required" type="text" maxlength="6"
+                    placeholder="Digite o seu CREF">
+            </div>
+
+            <div>
+                <input id="telefone" name="telefone" required="required" type="text"
+                    placeholder="Digite o seu telefone">
+            </div>
+
+            <div>
+                <input id="academia" name="academia" required="required" type="text"
+                    placeholder="Digite a academia que você está vinculado">
+            </div>
+            <div class="actions">
+                <span>
+                    Já tem conta?
+                    <a href="#paralogin"> Ir para Login </a>
+                </span>
+
+                <button>Cadastrar</button>
+            </div>
+        </form>
+
+        <script>
+            const form = document.querySelector("form")
+
+            form.addEventListener("submit", async ev => {
+                ev.preventDefault()
+
+                const respostaDoServidor = await fetch("/pessoa", {
+                    method: "POST",
+                    headers: new Headers({ 'content-type': 'application/json' }),
+                    body: JSON.stringify({
+                        email: form.email.value,
+                        nome: form.nome.value,
+                        academia: form.academia.value,
+                        telefone: form.telefone.value,
+                        senha: form.senha.value,
+                        cref: form.cref.value,
+                    })
+                })
+
+                const dadosDaResposta = await respostaDoServidor.json()
+                // alert("inserido "+ dadosDaResposta.affectedRows + " pessoa(s)")
+                location.href = "http://localhost/menu.html"
+            })
+        </script>
+    </div>
+
+</body>
+</html>

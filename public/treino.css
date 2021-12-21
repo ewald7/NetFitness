@@ -1,0 +1,15 @@
+input[type="number"] {
+    padding: 2px;
+    width: 10%;
+}
+
+ul {
+    background-color: #F08080AA;
+    list-style: none;
+    box-shadow: 2px 2px 2px 2px #E64C66;
+    box-sizing: content-box;
+    
+    border: 0 none;
+    border-radius: 4px;
+    position: relative;
+}

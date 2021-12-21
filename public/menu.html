@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Menu</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='form-page.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='menu.css'>
+
+</head>
+
+<body>
+    
+
+    
+    <div class="form-container" id="cadastro">
+        <img src="assets/logovermelho.png" alt="logotipo" width=300 height=200>
+        <h1>Seus treinos</h1>
+        <form>
+            <div class="dropdown show">                
+            </div>
+        </form>
+    </div>
+
+    <script>
+    
+        const btAdicionarTipo = document.querySelector("#myBtn")
+        const form = document.querySelector('form')
+        const div = document.querySelector ("#MyDropdown")
+    
+        
+
+        form.addEventListener("submit", async ev => {
+            event.preventDefault()
+        })
+
+
+        document.querySelector(".dropdown").addEventListener("click", ev => {
+            ev.target.closest("button").nextElementSibling.classList.toggle("show")
+        })
+
+        void async function () {
+            const dp = document.querySelector(".dropdown")
+            const request = await fetch("/treino")
+            const requestData = await request.json()
+            requestData.forEach(async linha => {
+                let lis = ''
+                const f = await fetch(`/treino/exercicios/${linha.id_treino}`)
+                const exercicios = await f.json()
+                exercicios.forEach(exercicio => {
+                    lis += `
+                        <li>
+                            <img src="images/${exercicio.gif}" width=100 height=80>
+                            <div>
+                                <span>${exercicio.nome}</span>
+                                <span>${exercicio.agrupamento}</span>
+                            </div>
+                        </li>
+                    ` 
+                })
+
+                dp.innerHTML += `<button id="myBtn" class="dropbtn">${linha.tipo}</button><ul>${lis}</ul>`
+            })
+        }();
+    </script>
+</body>
+
+</html>

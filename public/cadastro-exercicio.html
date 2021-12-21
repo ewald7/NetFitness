@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='utf-8'>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<title>Tela cadastro de exercicio</title>
+	<link rel='stylesheet' type='text/css' media='screen' href='form-page.css'>
+	<link rel='stylesheet' type='text/css' media='screen' href='exercicio.css'>
+</head>
+
+<div class="form-container" id="cadastro">
+	<img src="assets/logovermelho.png" alt="logotipo" width=300 height=200>
+	<h1>Cadastro de exercicio</h1>
+
+	<form>
+		<div>
+			<input id="nome" name="nome" required="required" type="text" placeholder="Digite o nome do exercício">
+		</div>
+
+		<div>
+			<select name="agrupamento" id="select1">
+				<option value="seila">Selecione o agrupamento muscular</option>
+				<option value="peito">Peito</option>
+				<option value="costas">Costas</option>
+				<option value="gluteos">Glúteos</option>
+				<option value="triceps">Tríceps</option>
+				<option value="biceps">Bíceps</option>
+				<option value="ombro">Ombro</option>
+				<option value="antebraco">Antebraço</option>
+				<option value="abdomen">Abdômen</option>
+				<option value="quadriceps">Quadríceps</option>
+				<option value="panturrilha">Panturrilha</option>
+				<option value="trapezio">Trapézio</option>
+				<option value="perna">Perna</option>
+			</select>
+		</div>
+
+		<div>
+			<label for="gif">
+				<button class="bt-gif">Insira um GIF da execução do exercício</button>
+			</label>
+			<input id="gif" name="gif" type="file" hidden accept="image/gif" placeholder="qualquercoisa.gif" />
+		</div>
+		<div class="actions">
+			<span>
+				<a href="#paramenu"> Ir para menu </a>
+			</span>
+
+			<button>Cadastrar exercicio</button>
+		</div>
+
+	</form>
+
+	<script>
+		const inputGif = document.querySelector("#gif")
+		const btGif = document.querySelector(".bt-gif")
+		const form = document.querySelector("form")
+
+		btGif.addEventListener("click", ev => {
+		
+			ev.preventDefault()
+			inputGif.click()
+		})
+
+		form.addEventListener("submit", async ev => {
+			ev.preventDefault()
+		})
+
+		form.addEventListener("submit", async ev => {
+			ev.preventDefault()
+
+			const respostaDoServidor = await fetch("/exercicio", {
+				method: "POST",
+				headers: new Headers({ 'content-type': 'application/json' }),
+				body: JSON.stringify({
+					nome: form.nome.value,
+					agrupamento: form.agrupamento.value,
+				})
+			})
+
+			const dadosDaResposta = await respostaDoServidor.json()
+			
+			
+			const fileName = dadosDaResposta
+			const data = new FormData(form)
+			data.append("custom-filename", fileName)
+			const respostaDoServidorUploadDoGif = await fetch("/exercicio-gif", {
+				method: "POST",
+				body: data
+			})
+			// alert("inserido " + dadosDaResposta.affectedRows + " exercicio(s)")
+			// location.href = "http://localhost/menu.html"
+		})
+	</script>
+</div>
+
+
+
+</body>
+
+</html>

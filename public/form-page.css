@@ -1,0 +1,136 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #E64C66;
+    
+}
+
+.form-container {
+    /* border: 5px solid red; */
+    width: 500px;
+    background-color: white;
+    padding: 25px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 13px 6px #00000011;
+    border-radius: 9px;
+}
+
+.form-container h1 {
+    margin: 0;
+    padding-bottom: 25px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: red;
+    display: flex;
+    justify-content: center;
+
+    border: 0 none;
+
+}
+
+.form-container form {
+    /* border: 5px solid green; */
+}
+
+.form-container form > div {
+    /* border: 5px solid pink; */
+    display: flex;
+    margin-bottom: 25px;
+    border-bottom: 1px solid lightcoral;
+}
+
+.form-container form > div > input { 
+    border: 0;
+    padding: 10px;
+    width: 100%;
+    outline: none;
+    border-radius: 9px 9px 0 0;
+    transition: .3s;
+}
+
+.form-container form > div > input:focus { 
+    background-color: #F08080AA;
+    box-shadow: 2px 2px 2px 2px #E64C66;
+    /* transform: scale(.5); */
+    
+}
+
+.form-container form > div label,
+.form-container form > div > input::placeholder  {
+    color: #E64C66;
+    /* text-shadow: 
+    -1px -1px 0px #FFF, 
+    -1px 1px 0px #FFF,                    
+     1px -1px 0px #FFF,                  
+     1px 0px 0px #FFF; */
+    cursor: pointer;
+    transition: .3s;
+} 
+
+.form-container form > div > input:focus::placeholder {
+    color: #FFFFFF;
+}
+
+.form-container select {
+    padding: 25px;
+    box-sizing: border-box;
+    border: 0;
+    padding: 10px;
+    width: 100%;
+    outline: none;
+    border-radius: 9px 9px 0 0;
+    transition: .3s;
+    background-color: #F08080AA;
+    box-shadow: 2px 2px 2px 2px #E64C66;
+    border: 0 none;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-container form > div > div {
+    /* border: 5px solid purple; */
+    padding: 0 10px 10px 10px;
+}
+
+.form-container form > div.actions {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    border: 0 none;
+}
+
+.form-container form > div.actions span {
+    opacity: .5;
+    transition: .3s;
+}
+
+.form-container form > div.actions span:hover {
+    opacity: 1;
+}
+
+.form-container form > div.actions button {
+    border: 0 none;
+    background: red;
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+button{
+    background-color: #E64C66;;
+    border-radius: 4px;
+    padding: 10px;
+    color:  white;
+    
+}
+
+img, ul {
+    display: inline-block;
+}

@@ -1,0 +1,84 @@
+ul {
+  background-color: #F08080AA;
+  list-style: none;
+  box-shadow: 2px 2px 2px 2px #E64C66;
+  box-sizing: content-box;
+  color: white;
+  border: 0 none;
+  border-radius: 4px;
+  display: none;
+  position: relative;
+  width: 90%;
+
+
+}
+
+input[type="number"] {
+  padding: 2px;
+  width: 10%;
+
+}
+
+.dropbtn {
+  background-color: red;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: red;
+}
+
+.dropdown {
+  flex-direction: column;
+  display: inline-block;
+  width: 100%;
+}
+
+.dropdown-content {
+  display: none;
+  position: relative;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  /* overflow: auto; */
+  width: 100%;
+}
+
+.dropdown-content ul {
+  color: black;
+  padding: 6px 8px;
+  text-decoration: none;
+  display: block;
+  font-size: 120%;
+  
+
+}
+
+.show {
+  display: block;
+}
+
+
+li {
+  box-sizing: border-box;
+
+  display: flex;
+  width: 100%;
+  margin-bottom: 1em;
+  border-bottom: 1px solid;
+  padding: 1em;
+}
+
+li:last-child {
+  margin-bottom: 0;
+  border-bottom: 0 none;
+  /* padding-bottom: 1; */
+}
+
+span {
+  display: block;
+}

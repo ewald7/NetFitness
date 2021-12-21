@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Treino</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='form-page.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='treino.css'>
+    
+    
+
+</head>
+
+<body>
+    <div class="form-container" id="cadastro">
+        <img src="assets/logovermelho.png" alt="logotipo" width=300 height=200>
+        <h1>Cadastro de treino</h1>
+
+        <form method="post" action="">
+            <div>
+                <select name="pessoa" id="select1">
+                    <option value="">-- selecione uma pessoa --</option>
+                </select>
+            </div>
+
+            <div>
+                <select name="tipo" id="select2">
+                    <option value="">Selecione o tipo de treino</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                </select>
+            </div>
+
+            <div>
+                <select name="exercicio" id="select3">
+                </select>
+
+                <div>
+                    <button id="adicionarExe">+</button>
+                </div>
+            </div>
+            <ul id="placeEx">
+                <input type="hidden" name="idExercicio">
+                
+            </ul>
+         
+
+            <div class="actions">
+
+                <button>Salvar</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        
+        const form = document.querySelector("form")
+        const selectPessoa = document.querySelector("#select1")
+        const btAdicionarExe = document.querySelector("#adicionarExe")
+        const placeEx = document.querySelector("#placeEx")
+        const select = document.getElementById("select3");
+
+
+        btAdicionarExe.addEventListener("click", ev => {
+            ev.preventDefault()
+            const selectOptions = select.options[select.selectedIndex]
+            placeEx.innerHTML += `<li class="li-exercicio"> <button>-</button><input name="idExercicio" type="hidden" value="${selectOptions.value}"> <input type="number" id= "serie" name="serie" placeholder="Séries" value= "3"> <input type="number" id= "repeticoes" name="repeticoes" placeholder="Repetições" value= "12">- ${selectOptions.innerHTML}</li>`
+        })
+
+        placeEx.addEventListener("click", ev => {
+            ev.preventDefault()
+            const bt = ev.target.closest("button")
+            if (!bt) return
+            bt.closest("li").remove()
+        })
+
+        void async function () {
+            const request = await fetch("/pessoa")
+            const requestData = await request.json()
+            requestData.forEach(linha => {
+                selectPessoa.innerHTML += `<option value="${linha.id_pessoa}">${linha.nome}</option>`
+            })
+        }();
+
+        form.addEventListener("submit", async ev => {
+            ev.preventDefault()
+
+            listaDeExercicios = []
+            document.querySelectorAll(".li-exercicio").forEach(li => {
+                listaDeExercicios.push({
+                    idExercicio: parseInt(li.querySelector("[name='idExercicio']").value),
+                    serie: parseInt(li.querySelector("[name='serie']").value),
+                    repeticoes: parseInt(li.querySelector("[name='repeticoes']").value),
+                })
+            })
+
+            const respostaDoServidor = await fetch("/treino", {
+                method: "POST",
+                headers: new Headers({ 'content-type': 'application/json' }),
+                body: JSON.stringify({
+                    idPessoa: parseInt(form.pessoa[form.pessoa.selectedIndex].value),
+                    tipo: form.tipo[form.tipo.selectedIndex].value,
+                    exercicios: listaDeExercicios,
+                })
+            })
+
+            const dadosDaResposta = await respostaDoServidor.json()
+            alert("inserido " + dadosDaResposta.affectedRows + " treino")
+        })
+
+        const selectExercicio = document.querySelector("#select3")
+
+        void async function () {
+            const request = await fetch("/exercicio")
+            const requestData = await request.json()
+            requestData.forEach(linha => {
+                selectExercicio.innerHTML += `<option value="${linha.id_exercicio}">${linha.nome}</option>`
+            })
+        }();
+    </script>
+</body>
+
+</html>
